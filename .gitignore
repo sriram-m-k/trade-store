@@ -1,0 +1,11 @@
+# git ignore file
+obj/
+Build/Bin/
+Build/Deploy/
+*.suo
+*.iml
+*.ipr
+*.iws
+.idea/
+*.lst
+target/

@@ -1,0 +1,7 @@
+{
+  "tradeId" :"T2",
+  "version": 1,
+  "bookId" : "B1",
+  "counterPartyId": "CP-2",
+  "maturityDate": "2021-10-28"
+}

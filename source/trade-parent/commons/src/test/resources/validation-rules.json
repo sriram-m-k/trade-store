@@ -1,0 +1,61 @@
+{
+
+  "validationRules":[
+    {
+      "ruleId":"rule-1",
+      "objectType" : "com.test.cib.commons.test.models.TestModel",
+      "validations":  [
+        {
+          "id": "VALIDATION-001",
+          "type": "CLASS",
+          "failureMessage": "Validation failed. ",
+          "failedFields" : ["testName"],
+          "dataValidationImpl": "testModelNameValidator"
+        }
+      ]
+    },
+    {
+      "ruleId":"rule-2",
+      "objectType" : "com.test.cib.commons.test.models.TestModel",
+      "validations":  [
+        {
+          "id": "VALIDATION-001",
+          "type": "CLASS",
+          "failureMessage": "Validation failed for TestId",
+          "dataValidationImpl": "testModelIdValidator"
+        },
+        {
+          "id": "VALIDATION-002",
+          "type": "CLASS",
+          "failureMessage": "Validation failed for TestName",
+          "dataValidationImpl": "testModelNameValidator"
+        }
+      ]
+    },
+    {
+      "ruleId":"rule-3",
+      "objectType" : "com.test.cib.commons.test.models.TestModel",
+      "validations":  [
+        {
+          "id": "VALIDATION-001",
+          "type": "API",
+          "failureMessage": "Validation failed ",
+          "apiURL": "http://localhost:8080/order/book/${testId}"
+
+          }
+
+      ]
+    }
+
+
+
+
+
+
+
+
+
+  ]
+
+
+}

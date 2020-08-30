@@ -1,0 +1,34 @@
+{
+
+  "validationRules":[
+    {
+      "ruleId": "tradeStoreAdd",
+      "objectType" : "com.test.cib.trade.store.data.models.TradeStoreModel",
+      "validations":  [
+        {
+          "id": "VALIDATION-001",
+          "type": "CLASS",
+          "failureMessage": "Invalid Fields",
+          "failedFields" : ["tradeId","bookId","counterPartyId"],
+          "dataValidationImpl": "tradeStoreFieldsValidator"
+        },
+        {
+          "id": "VALIDATION-002",
+          "type": "CLASS",
+          "failureMessage": "Version of trade received is lower than the existing.",
+          "failedFields" : ["tradeId","bookId","counterPartyId"],
+          "dataValidationImpl": "tradeStoreVersionValidator"
+        },
+        {
+          "id": "VALIDATION-003",
+          "type": "CLASS",
+          "failureMessage": "Version of trade received is lower than the existing.",
+          "failedFields" : ["maturityDate"],
+          "dataValidationImpl": "tradeStoreMaturityDateValidator"
+        }
+      ]
+    }
+  ]
+
+
+}

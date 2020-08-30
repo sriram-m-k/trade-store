@@ -1,0 +1,53 @@
+/*
+ * Copyright 2020 by Sriram . All rights reserved.
+ * All information contained herein is proprietary and confidential to Sriram .
+ *  Any use, reproduction, or disclosure without the written permission of Sriram . is prohibited.
+ */
+package com.test.cib.trade.store.validators;
+
+import com.test.cib.commons.data.ModelInterface;
+import com.test.cib.commons.data.mapper.IMapper;
+import com.test.cib.commons.validators.ValidatorInterface;
+import com.test.cib.trade.store.data.entity.TradeStoreEntity;
+import com.test.cib.trade.store.data.models.TradeStoreModel;
+import com.test.cib.trade.store.repository.TradeStoreRepository;
+import org.apache.logging.log4j.core.util.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.Errors;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ *  Validates the Maturity date
+ */
+@Configuration("tradeStoreMaturityDateValidator")
+public class TradeStoreMaturityDateValidator implements ValidatorInterface {
+
+	Logger logger = LoggerFactory.getLogger(TradeStoreMaturityDateValidator.class);
+
+	@Override
+	public boolean validate(ModelInterface model, Errors errors) {
+		logger.info ("----------------Validating Version-------");
+		if( !(model instanceof TradeStoreModel))	{
+			throw new IllegalArgumentException("Not a valid input");
+		}
+		TradeStoreModel tradeStoreModel =(TradeStoreModel) model;
+		// getting from locatTime
+		Date currentDBTime = new Date();
+		logger.info("DB TIME :"+ currentDBTime);
+		if(!Assert.isEmpty(currentDBTime) &&
+				!Assert.isEmpty(tradeStoreModel.getMaturityDate()) &&
+			currentDBTime.after(tradeStoreModel.getMaturityDate()))	{
+				errors.rejectValue("MaturityDate", "Maturity date is less than Current Date");
+				return false;
+		}
+
+		logger.info ("----------------Validating Version successful-------");
+		return true;
+	}
+}
