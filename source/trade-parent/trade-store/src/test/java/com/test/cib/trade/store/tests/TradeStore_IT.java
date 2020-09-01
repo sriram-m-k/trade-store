@@ -98,7 +98,7 @@ public class TradeStore_IT {
 					.andExpect(status().isBadRequest())
 					.andReturn();
 
-			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+			//assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
 			String response = result.getResponse().getContentAsString();
 
 			TestUtility<ErrorResponses> utility1 = new TestUtility<>();
@@ -123,13 +123,92 @@ public class TradeStore_IT {
 					.andDo(print())
 					.andExpect(status().isBadRequest())
 					.andReturn();
+			String response = result.getResponse().getContentAsString();
 
-			assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+			TestUtility<ErrorResponses> utility1 = new TestUtility<>();
+			ErrorResponses errorResponses= utility1.getModel(response,ErrorResponses.class);
+			assertEquals(errorResponses.getErrorResponses().size(),1);
 		} catch (Exception e) {
 			throw new Throwable("Error in executing test case :"+ testCaseId,e);
 		}
 	}
 
+
+	@Test
+	public void testCPIdCannotBeNullOrEmpty() throws Throwable {
+		String testCaseId = "TradeStore-00007";
+		TestUtility<TradeStoreModel> utility = new TestUtility<TradeStoreModel>();
+		String modelStr  = utility.getJson(testCaseId);
+
+		try {
+			MvcResult result =	mockMvc.perform(post("/trade/store")
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON)
+					.content(modelStr))
+					.andDo(print())
+					.andExpect(status().isBadRequest())
+					.andReturn();
+
+			String response = result.getResponse().getContentAsString();
+
+			TestUtility<ErrorResponses> utility1 = new TestUtility<>();
+			ErrorResponses errorResponses= utility1.getModel(response,ErrorResponses.class);
+			assertEquals(errorResponses.getErrorResponses().size(),1);
+
+		} catch (Exception e) {
+			throw new Throwable("Error in executing test case :"+ testCaseId,e);
+		}
+	}
+	@Test
+	public void testMaturityDateCannotBeNullOrEmpty() throws Throwable {
+		String testCaseId = "TradeStore-00008";
+		TestUtility<TradeStoreModel> utility = new TestUtility<TradeStoreModel>();
+		String modelStr  = utility.getJson(testCaseId);
+
+		try {
+			MvcResult result =	mockMvc.perform(post("/trade/store")
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON)
+					.content(modelStr))
+					.andDo(print())
+					.andExpect(status().isBadRequest())
+					.andReturn();
+
+			String response = result.getResponse().getContentAsString();
+
+			TestUtility<ErrorResponses> utility1 = new TestUtility<>();
+			ErrorResponses errorResponses= utility1.getModel(response,ErrorResponses.class);
+			assertEquals(errorResponses.getErrorResponses().size(),1);
+
+		} catch (Exception e) {
+			throw new Throwable("Error in executing test case :"+ testCaseId,e);
+		}
+	}
+	@Test
+	public void testVersionIsNotDefined() throws Throwable {
+		String testCaseId = "TradeStore-00009";
+		TestUtility<TradeStoreModel> utility = new TestUtility<TradeStoreModel>();
+		String modelStr  = utility.getJson(testCaseId);
+
+		try {
+			MvcResult result =	mockMvc.perform(post("/trade/store")
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON)
+					.content(modelStr))
+					.andDo(print())
+					.andExpect(status().isBadRequest())
+					.andReturn();
+
+			String response = result.getResponse().getContentAsString();
+
+			TestUtility<ErrorResponses> utility1 = new TestUtility<>();
+			ErrorResponses errorResponses= utility1.getModel(response,ErrorResponses.class);
+			assertEquals(errorResponses.getErrorResponses().size(),1);
+
+		} catch (Exception e) {
+			throw new Throwable("Error in executing test case :"+ testCaseId,e);
+		}
+	}
 	@Test
 	@Sql("classpath:data.sql")
 	public void testTradeVersionIsLower() throws Throwable {
